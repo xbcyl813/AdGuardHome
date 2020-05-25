@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 import flow from 'lodash/flow';
 import classnames from 'classnames';
 
@@ -17,7 +17,7 @@ const getInputFields = (parallel_requests_selected, fastest_addr_selected) => [{
     name: 'upstream_dns',
     type: 'text',
     component: 'textarea',
-    className: 'form-control form-control--textarea',
+    className: 'form-control form-control--textarea font-monospace',
     placeholder: 'upstream_dns',
 },
 {
@@ -96,7 +96,7 @@ let Form = (props) => {
                         name="bootstrap_dns"
                         component="textarea"
                         type="text"
-                        className="form-control form-control--textarea form-control--textarea-small"
+                        className="form-control form-control--textarea form-control--textarea-small font-monospace"
                         placeholder={t('bootstrap_dns')}
                         disabled={processingSetConfig}
                     />
@@ -107,11 +107,10 @@ let Form = (props) => {
                     <button
                         type="button"
                         className={testButtonClass}
-                        onClick={() =>
-                            testUpstream({
-                                upstream_dns,
-                                bootstrap_dns,
-                            })
+                        onClick={() => testUpstream({
+                            upstream_dns,
+                            bootstrap_dns,
+                        })
                         }
                         disabled={!upstream_dns || processingTestUpstream}
                     >
@@ -164,7 +163,7 @@ Form = connect((state) => {
 })(Form);
 
 export default flow([
-    withNamespaces(),
+    withTranslation(),
     reduxForm({
         form: 'upstreamForm',
     }),
